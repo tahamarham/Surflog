@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  ScrollView, 
-  TouchableOpacity, 
-  SafeAreaView 
-} from 'react-native';
 import { useRouter } from 'expo-router';
+import { useState } from 'react';
+import {
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
+} from 'react-native';
 
 export default function ProgressScreen() {
   const router = useRouter();
@@ -20,80 +20,116 @@ export default function ProgressScreen() {
     { id: '4', date: 'Jun 28, 2026', spot: 'Ain Diab Plage', rating: '😞', condition: 'Bad', thoughts: 'Washed out completely. Went home after 30 minutes.' },
   ]);
 
-  return (
-    <SafeAreaView style={styles.safeArea}>
-      
-      {/* HEADER */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-          <Text style={styles.backText}>← Back</Text>
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Surf Progress</Text>
-        <View style={{ width: 50 }} /> {/* Spacer to center the title */}
+return (
+  <SafeAreaView style={styles.safeArea}>
+    {/* HEADER */}
+    <View style={styles.header}>
+      <TouchableOpacity
+        onPress={() => router.back()}
+        style={styles.backButton}
+      >
+        <Text style={styles.backText}>← Back</Text>
+      </TouchableOpacity>
+
+      <Text style={styles.headerTitle}>Surf Progress</Text>
+
+      <View style={{ width: 50 }} />
+    </View>
+
+    <ScrollView
+      style={styles.container}
+      showsVerticalScrollIndicator={false}
+    >
+      {/* MONTHLY AVERAGE SECTION */}
+      <Text style={styles.sectionTitle}>July 2026 Overview</Text>
+
+      <View style={styles.statsGrid}>
+        <View style={styles.statCard}>
+          <Text style={styles.statLabel}>Sessions</Text>
+          <Text style={styles.statValue}>3</Text>
+        </View>
+
+        <View style={styles.statCard}>
+          <Text style={styles.statLabel}>Avg Vibe</Text>
+          <Text style={styles.statEmoji}>🤩</Text>
+        </View>
+
+        <View style={styles.statCard}>
+          <Text style={styles.statLabel}>Conditions</Text>
+          <Text style={styles.statValueText}>Good</Text>
+        </View>
       </View>
 
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-        
-        {/* MONTHLY AVERAGE SECTION */}
-        <Text style={styles.sectionTitle}>July 2026 Overview</Text>
-        <View style={styles.statsGrid}>
-          <View style={styles.statCard}>
-            <Text style={styles.statLabel}>Sessions</Text>
-            <Text style={styles.statValue}>3</Text>
-          </View>
-          <View style={styles.statCard}>
-            <Text style={styles.statLabel}>Avg Vibe</Text>
-            <Text style={styles.statEmoji}>🤩</Text>
-          </View>
-          <View style={styles.statCard}>
-            <Text style={styles.statLabel}>Conditions</Text>
-            <Text style={styles.statValueText}>Good</Text>
-          </View>
+      {/* YEARLY AVERAGE SECTION */}
+      <Text style={styles.sectionTitle}>2026 Year-to-Date</Text>
+
+      <View style={styles.yearlyCard}>
+        <View style={styles.yearlyRow}>
+          <Text style={styles.yearlyLabel}>
+            Total Sessions Logged:
+          </Text>
+          <Text style={styles.yearlyValue}>24</Text>
         </View>
 
-        {/* YEARLY AVERAGE SECTION */}
-        <Text style={styles.sectionTitle}>2026 Year-to-Date</Text>
-        <View style={styles.yearlyCard}>
-          <View style={styles.yearlyRow}>
-            <Text style={styles.yearlyLabel}>Total Sessions Logged:</Text>
-            <Text style={styles.yearlyValue}>24</Text>
-          </View>
-          <View style={styles.yearlyRow}>
-            <Text style={styles.yearlyLabel}>Most Frequent Spot:</Text>
-            <Text style={styles.yearlyValue}>Ain Diab Plage</Text>
-          </View>
-          <View style={styles.yearlyRow}>
-            <Text style={styles.yearlyLabel}>Overall Condition Avg:</Text>
-            <Text style={styles.yearlyValue}>Mid / Good</Text>
-          </View>
+        <View style={styles.yearlyRow}>
+          <Text style={styles.yearlyLabel}>
+            Most Frequent Spot:
+          </Text>
+          <Text style={styles.yearlyValue}>
+            Ain Diab Plage
+          </Text>
         </View>
 
-        {/* SESSION HISTORY LOG */}
-        <Text style={styles.sectionTitle}>Recent Records</Text>
-        {sessionHistory.map((session) => (
-          <View key={session.id} style={styles.historyCard}>
-            <View style={styles.historyHeader}>
-              <View>
-                <Text style={styles.historyDate}>{session.date}</Text>
-                <Text style={styles.historySpot}>{session.spot}</Text>
-              </View>
-              <Text style={styles.historyEmoji}>{session.rating}</Text>
+        <View style={styles.yearlyRow}>
+          <Text style={styles.yearlyLabel}>
+            Overall Condition Avg:
+          </Text>
+          <Text style={styles.yearlyValue}>
+            Mid / Good
+          </Text>
+        </View>
+      </View>
+
+      {/* SESSION HISTORY LOG */}
+      <Text style={styles.sectionTitle}>Recent Records</Text>
+
+      {sessionHistory.map((session) => (
+        <View key={session.id} style={styles.historyCard}>
+          <View style={styles.historyHeader}>
+            <View>
+              <Text style={styles.historyDate}>
+                {session.date}
+              </Text>
+
+              <Text style={styles.historySpot}>
+                {session.spot}
+              </Text>
             </View>
-            <View style={styles.badgeContainer}>
-              <View style={styles.conditionBadge}>
-                <Text style={styles.conditionBadgeText}>{session.condition}</Text>
-              </View>
-            </View>
-            <Text style={styles.historyThoughts}>{session.thoughts}</Text>
+
+            <Text style={styles.historyEmoji}>
+              {session.rating}
+            </Text>
           </View>
-        ))}
 
-        {/* Bottom padding so scroll doesn't get cut off */}
-        <View style={{ height: 40 }} />
+          <View style={styles.badgeContainer}>
+            <View style={styles.conditionBadge}>
+              <Text style={styles.conditionBadgeText}>
+                {session.condition}
+              </Text>
+            </View>
+          </View>
 
-      </ScrollView>
-    </SafeAreaView>
-  );
+          <Text style={styles.historyThoughts}>
+            {session.thoughts}
+          </Text>
+        </View>
+      ))}
+
+      {/* Bottom padding */}
+      <View style={{ height: 40 }} />
+    </ScrollView>
+  </SafeAreaView>
+);
 }
 
 const styles = StyleSheet.create({
