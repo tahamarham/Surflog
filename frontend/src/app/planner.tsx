@@ -1,51 +1,48 @@
-import React, { useState } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  ScrollView, 
-  TouchableOpacity, 
-  SafeAreaView,
-  Modal,
-  TextInput,
-  KeyboardAvoidingView,
-  Platform,
-  Alert
-} from 'react-native';
 import { useRouter } from 'expo-router';
+import { useState } from 'react';
+import {
+    Alert,
+    KeyboardAvoidingView,
+    Modal,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 
-// Helper to assign a specific color to each activity type
 const getActivityColor = (type: string) => {
   switch (type) {
-    case 'Surfing': return '#0ea5e9'; // Blue
-    case 'Lifting': return '#f97316'; // Orange
-    case 'Running': return '#10b981'; // Green
-    case 'Team Sports': return '#ef4444'; // Red
-    case 'Stretching': return '#8b5cf6'; // Purple
-    default: return '#6b7280'; // Gray
+    case 'Surfing': return '#0ea5e9';
+    case 'Lifting': return '#f97316';
+    case 'Running': return '#10b981';
+    case 'Team Sports': return '#ef4444';
+    case 'Stretching': return '#8b5cf6';
+    default: return '#6b7280';
   }
 };
 
 type Activity = { id: string; type: string; time: string; duration: number; notes: string };
 
-const HOUR_HEIGHT = 60; // 1 minute = 1 pixel of height
+const HOUR_HEIGHT = 60;
 
 export default function PlannerScreen() {
   const router = useRouter();
   
-  // -- UI State --
   const [selectedDay, setSelectedDay] = useState('Mon');
   const [isFormVisible, setFormVisible] = useState(false);
 
-  // -- Form State --
+  const { t, i18n } = useTranslation();
   const [formDay, setFormDay] = useState('Mon');
-  const [formTime, setFormTime] = useState('09:00'); // Default 24h format for easier parsing
-  const [formDuration, setFormDuration] = useState('60'); // Minutes
+  const [formTime, setFormTime] = useState('09:00');
+  const [formDuration, setFormDuration] = useState('60');
   const [formActivity, setFormActivity] = useState('Surfing');
   const [formNotes, setFormNotes] = useState('');
 
-  // -- Data State (The Schedule) --
-  // Time must be in strict "HH:mm" 24h format so the grid can place it accurately
   const [schedule, setSchedule] = useState<Record<string, Activity[]>>({
     'Mon': [],
     'Tue': [{ id: '1', type: 'Surfing', time: '06:30', duration: 90, notes: 'Dawn patrol. Focusing on bottom turns.' }],
@@ -58,13 +55,12 @@ export default function PlannerScreen() {
 
   const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   const activityTypes = ['Surfing', 'Lifting', 'Running', 'Team Sports', 'Stretching'];
-  const hoursOfDay = Array.from({ length: 24 }, (_, i) => i); // 0 to 23
+  const hoursOfDay = Array.from({ length: 24 }, (_, i) => i);
 
-  // Helper to convert "HH:mm" to pixel offset from the top of the grid
   const calculateTopOffset = (timeStr: string) => {
     const [hours, minutes] = timeStr.split(':').map(Number);
     if (isNaN(hours) || isNaN(minutes)) return 0;
-    return (hours * HOUR_HEIGHT) + minutes; // 1 pixel per minute
+    return (hours * HOUR_HEIGHT) + minutes;
   };
 
   const handleSaveActivity = () => {
@@ -86,7 +82,6 @@ export default function PlannerScreen() {
       [formDay]: [...prev[formDay], newActivity]
     }));
 
-    // Reset and close
     setFormTime('09:00');
     setFormDuration('60');
     setFormNotes('');
@@ -117,16 +112,15 @@ export default function PlannerScreen() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      {/* HEADER */}
+      
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
           <Text style={styles.backText}>← Back</Text>
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Agenda</Text>
-        <View style={{ width: 60 }} /> {/* Spacer */}
+        <View style={{ width: 60 }} />
       </View>
 
-      {/* WEEKLY CALENDAR STRIP */}
       <View style={styles.calendarStrip}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.calendarScroll}>
           {daysOfWeek.map((day) => {
@@ -138,18 +132,16 @@ export default function PlannerScreen() {
                 onPress={() => setSelectedDay(day)}
               >
                 <Text style={[styles.dayName, isSelected && styles.dayTextActive]}>{day}</Text>
-                {schedule[day].length > 0 && !isSelected && <View style={styles.activeDot} />}
+                {schedule[day].length > 0 && !isSelected ? <View style={styles.activeDot} /> : null}
               </TouchableOpacity>
             );
           })}
         </ScrollView>
       </View>
 
-      {/* GOOGLE CALENDAR STYLE GRID */}
       <ScrollView style={styles.gridScrollContainer} showsVerticalScrollIndicator={false}>
         <View style={styles.gridInner}>
           
-          {/* 1. Background Grid Lines (24 Hours) */}
           {hoursOfDay.map(hour => (
             <View key={`line-${hour}`} style={styles.hourRow}>
               <Text style={styles.timeLabel}>
@@ -159,11 +151,10 @@ export default function PlannerScreen() {
             </View>
           ))}
 
-          {/* 2. Absolute Positioned Activity Blocks */}
           <View style={styles.eventsContainer}>
             {currentActivities.map((activity) => {
               const topOffset = calculateTopOffset(activity.time);
-              const height = activity.duration; // 1 min = 1 px
+              const height = activity.duration;
 
               return (
                 <TouchableOpacity 
@@ -173,12 +164,12 @@ export default function PlannerScreen() {
                     { 
                       top: topOffset, 
                       height: height,
-                      backgroundColor: getActivityColor(activity.type) + '20', // 20% opacity background
+                      backgroundColor: getActivityColor(activity.type) + '20',
                       borderLeftColor: getActivityColor(activity.type),
                     }
                   ]}
                   onLongPress={() => handleDeleteActivity(activity.id, selectedDay)}
-                  delayLongPress={400} // How long to press before delete prompt
+                  delayLongPress={400}
                 >
                   <Text style={[styles.blockType, { color: getActivityColor(activity.type) }]}>
                     {activity.type} • {activity.time}
@@ -192,21 +183,19 @@ export default function PlannerScreen() {
           </View>
           
         </View>
-        <View style={{ height: 100 }} /> {/* Bottom padding */}
+        <View style={{ height: 100 }} />
       </ScrollView>
 
-      {/* HUGE FLOATING ADD BUTTON */}
       <TouchableOpacity 
         style={styles.hugeFab} 
         onPress={() => {
-          setFormDay(selectedDay); // Default form to whatever day you are looking at
+          setFormDay(selectedDay);
           setFormVisible(true);
         }}
       >
         <Text style={styles.hugeFabText}>+</Text>
       </TouchableOpacity>
 
-      {/* ADD ACTIVITY MODAL FORM */}
       <Modal
         animationType="slide"
         visible={isFormVisible}
@@ -331,7 +320,6 @@ const styles = StyleSheet.create({
   dayTextActive: { color: '#ffffff' },
   activeDot: { width: 6, height: 6, borderRadius: 3, backgroundColor: '#0ea5e9', position: 'absolute', bottom: 6 },
   
-  // -- GRID STYLES --
   gridScrollContainer: { flex: 1, backgroundColor: '#f9fafb' },
   gridInner: { position: 'relative', paddingTop: 20 },
   hourRow: { flexDirection: 'row', height: HOUR_HEIGHT, width: '100%' },
@@ -347,7 +335,6 @@ const styles = StyleSheet.create({
   blockType: { fontSize: 14, fontWeight: 'bold' },
   blockNotes: { fontSize: 12, color: '#374151', marginTop: 2 },
   
-  // -- HUGE FAB STYLES --
   hugeFab: {
     position: 'absolute', bottom: 30, right: 24,
     width: 64, height: 64, borderRadius: 32, backgroundColor: '#0ea5e9',
@@ -356,7 +343,6 @@ const styles = StyleSheet.create({
   },
   hugeFabText: { fontSize: 40, color: '#ffffff', fontWeight: '300', marginTop: -4 },
   
-  // -- MODAL STYLES --
   modalSafeArea: { flex: 1, backgroundColor: '#ffffff' },
   modalContainer: { flex: 1, paddingHorizontal: 24 },
   modalHeader: {

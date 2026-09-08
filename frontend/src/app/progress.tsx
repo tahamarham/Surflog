@@ -8,9 +8,10 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
-
+import { useTranslation } from 'react-i18next';
 export default function ProgressScreen() {
   const router = useRouter();
+  const { t, i18n } = useTranslation();
 
   // Mock data representing saved sessions
   const [sessionHistory] = useState([

@@ -9,9 +9,12 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import MapView, { Marker } from 'react-native-maps';
+import { useTranslation } from 'react-i18next';
+
 
 export default function ForecastScreen() {
   const router = useRouter();
+  const { t, i18n } = useTranslation();
 
   const [selectedCoord, setSelectedCoord] = useState<{latitude: number, longitude: number} | null>(null);
   const [locationName, setLocationName] = useState<string>('');

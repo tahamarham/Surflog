@@ -1,0 +1,51 @@
+{
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "back": "Atrás",
+    "loading": "Cargando...",
+    "error": "Ocurrió un error. Por favor, inténtalo de nuevo.",
+    "success": "¡Éxito!"
+  },
+  "auth": {
+    "login": "Iniciar sesión",
+    "signup": "Crear cuenta",
+    "email": "Correo electrónico",
+    "password": "Contraseña"
+  },
+  "home": {
+    "welcome": "Bienvenido de nuevo, {{name}}",
+    "swellForecast": "Pronóstico de Oleaje",
+    "noWaves": "Hoy no hay olas. ¡Buen día para entrenar!"
+  },
+  "profile": {
+    "title": "Perfil",
+    "edit": "Editar",
+    "preferences": "Preferencias",
+    "accountDetails": "Detalles de la cuenta",
+    "language": "Idioma",
+    "app": "Ajustes de la aplicación",
+    "units": "Unidades",
+    "theme": "Tema",
+    "logout": "Cerrar sesión",
+    "surfingSince": "Surfeando con nosotros desde"
+  },
+  "editProfile": {
+    "title": "Editar Perfil",
+    "profilePicture": "Foto de perfil",
+    "addPicture": "Añadir foto",
+    "changePicture": "Cambiar foto",
+    "removePicture": "Eliminar foto",
+    "noImage": "Sin imagen",
+    "nameLabel": "Nombre",
+    "namePlaceholder": "Ingresa tu nombre",
+    "bioLabel": "Biografía",
+    "bioPlaceholder": "Cuéntanos sobre tu surf..."
+  },
+  "planner": {
+    "title": "Planificador de Surf y Entrenamiento",
+    "addSession": "Agregar sesión",
+    "surf": "Sesión de Surf",
+    "workout": "Entrenamiento"
+  }
+}

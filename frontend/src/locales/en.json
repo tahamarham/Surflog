@@ -1,0 +1,51 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "back": "Back",
+    "loading": "Loading...",
+    "error": "An error occurred. Please try again.",
+    "success": "Success!"
+  },
+  "auth": {
+    "login": "Log In",
+    "signup": "Create Account",
+    "email": "Email",
+    "password": "Password"
+  },
+  "home": {
+    "welcome": "Welcome back, {{name}}",
+    "swellForecast": "Swell Forecast",
+    "noWaves": "It's flat today. Good day for a workout circuit!"
+  },
+  "profile": {
+    "title": "Profile",
+    "edit": "Edit",
+    "preferences": "Preferences",
+    "accountDetails": "Account Details",
+    "language": "Language",
+    "app": "App Settings",
+    "units": "Units",
+    "theme": "Theme",
+    "logout": "Log Out",
+    "surfingSince": "Surfing with us since"
+  },
+  "editProfile": {
+    "title": "Edit Profile",
+    "profilePicture": "Profile Picture",
+    "addPicture": "Add Picture",
+    "changePicture": "Change Picture",
+    "removePicture": "Remove Picture",
+    "noImage": "No Image",
+    "nameLabel": "Name",
+    "namePlaceholder": "Enter your name",
+    "bioLabel": "Bio",
+    "bioPlaceholder": "Tell us about your surfing (e.g., Aïn Diab local)..."
+  },
+  "planner": {
+    "title": "Surf & Workout Planner",
+    "addSession": "Add Session",
+    "surf": "Surf Session",
+    "workout": "Workout"
+  }
+}

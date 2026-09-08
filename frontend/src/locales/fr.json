@@ -1,0 +1,51 @@
+{
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "back": "Retour",
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue. Veuillez réessayer.",
+    "success": "Succès !"
+  },
+  "auth": {
+    "login": "Se connecter",
+    "signup": "Créer un compte",
+    "email": "E-mail",
+    "password": "Mot de passe"
+  },
+  "home": {
+    "welcome": "Bon retour, {{name}}",
+    "swellForecast": "Prévisions de Houle",
+    "noWaves": "C'est plat aujourd'hui. Bonne journée pour s'entraîner !"
+  },
+  "profile": {
+    "title": "Profil",
+    "edit": "Modifier",
+    "preferences": "Préférences",
+    "accountDetails": "Détails du compte",
+    "language": "Langue",
+    "app": "Paramètres de l'application",
+    "units": "Unités",
+    "theme": "Thème",
+    "logout": "Se déconnecter",
+    "surfingSince": "Surfe avec nous depuis"
+  },
+  "editProfile": {
+    "title": "Modifier le profil",
+    "profilePicture": "Photo de profil",
+    "addPicture": "Ajouter une photo",
+    "changePicture": "Changer la photo",
+    "removePicture": "Supprimer la photo",
+    "noImage": "Pas d'image",
+    "nameLabel": "Nom",
+    "namePlaceholder": "Entrez votre nom",
+    "bioLabel": "Bio",
+    "bioPlaceholder": "Parlez-nous de votre surf (ex: Local de Aïn Diab)..."
+  },
+  "planner": {
+    "title": "Planificateur Surf & Entraînement",
+    "addSession": "Ajouter une session",
+    "surf": "Session de Surf",
+    "workout": "Entraînement"
+  }
+}
